@@ -42,6 +42,26 @@ def predict_1bit(bpb, addr, ocorrido):
     # return prediction
     return 1 if prediction == ocorrido else 0
 
+def predict_2bit(bpb, addr, ocorrido):
+    index = index_bpb(addr, len(bpb))
+    state = bpb[index]
+
+    # Faz a predição primeiro (baseado no estado atual)
+    pred = 1 if state >= 2 else 0
+
+    # Agora atualiza o estado com base no resultado real
+    # if pred == ocorrido # Taken
+        # aux = 1 
+    # Atualiza o estado
+    if ocorrido == 1:
+        bpb[index] = min(state + 1, 3)  # Incrementa o estado
+    else:
+        bpb[index] = max(state - 1, 0)
+    # return acerto if pred == ocorrido else 0
+    
+    return 1 if pred == ocorrido else 0
+
+
 # Função principal
 def main():
     # Verifica argumetnos da linha de comando
@@ -71,7 +91,7 @@ def main():
             acertos_nt += not_taken(ocorrido)
             acertos_dir += direction(branch, target, ocorrido)
             acertos_1bit += predict_1bit(bpb_1bit, branch, ocorrido)
-            # acertos_2bit += predict_2bit(bpb_2bit, branch, ocorrido)
+            acertos_2bit += predict_2bit(bpb_2bit, branch, ocorrido)
 
     ######################### Result #############################
     print(f"Total de branches executados: {nBranches}")
@@ -79,6 +99,7 @@ def main():
     print(f"Total de acertos (Taken): {acertos_t}")
     print(f"Total de acertos (Direção): {acertos_dir}")
     print(f"Total de acertos (1-bit): {acertos_1bit}")
+    print(f"Total de acertos (2-bit): {acertos_2bit}")
 
 # Execução da função principal
 if __name__ == "__main__":
