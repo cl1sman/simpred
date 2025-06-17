@@ -65,4 +65,4 @@ Taxa de acertos (2-bits): 91.25%
 
 ## 👨‍💻 Autor
 
-Feito por `Clisman` como parte do Trabalho 2 da disciplina de Arquitetura de Computadores II (UFMS, 2025).
+Feito por `Clisman`, `Franciso`e `Larissa` como parte do Trabalho 2 da disciplina de Arquitetura de Computadores II (UFMS, 2025).
