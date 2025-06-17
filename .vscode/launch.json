@@ -11,7 +11,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "cwd": "${fileDirname}",
-            "args": ["trace.txt", "16"]
+            "args": ["trace-10.txt", "16"]
         }
     ]
 }

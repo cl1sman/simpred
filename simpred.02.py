@@ -44,22 +44,21 @@ def predict_1bit(bpb, addr, ocorrido):
 
 def predict_2bit(bpb, addr, ocorrido):
     index = index_bpb(addr, len(bpb))
-    state = bpb[index]
+    state = bpb[index]  # estado atual: 0–3
 
-    # Faz a predição primeiro (baseado no estado atual)
+    # 1. Predição com base no MSB do contador
     pred = 1 if state >= 2 else 0
 
-    # Agora atualiza o estado com base no resultado real
-    # if pred == ocorrido # Taken
-        # aux = 1 
-    # Atualiza o estado
-    if ocorrido == 1:
-        bpb[index] = min(state + 1, 3)  # Incrementa o estado
-    else:
-        bpb[index] = max(state - 1, 0)
-    # return acerto if pred == ocorrido else 0
-    
-    return 1 if pred == ocorrido else 0
+    # 2. Verifica acerto antes de atualizar o BPB
+    acerto = (pred == ocorrido)
+
+    # 3. Atualiza o contador (pós-predição)
+    if ocorrido == 1:  # resultado real: tomado
+        bpb[index] = (pred | (state & 1 & ocorrido))<<1 | ocorrido
+    else:              # resultado real: não tomado
+        bpb[index] = (state & 2) & ((state & 1) << 1)
+
+    return acerto  # retorna 1 se acertou, 0 se errou
 
 
 # Função principal
