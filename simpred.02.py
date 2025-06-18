@@ -93,12 +93,16 @@ def main():
             acertos_2bit += predict_2bit(bpb_2bit, branch, ocorrido)
 
     ######################### Result #############################
+    # Taxa de acerto
+    def percent(acertos):
+        return round((acertos / nBranches) * 100, 2)
+    
     print(f"Total de branches executados: {nBranches}")
-    print(f"Total de acertos (Not-taken): {acertos_nt}")
-    print(f"Total de acertos (Taken): {acertos_t}")
-    print(f"Total de acertos (Direção): {acertos_dir}")
-    print(f"Total de acertos (1-bit): {acertos_1bit}")
-    print(f"Total de acertos (2-bit): {acertos_2bit}")
+    print(f"Total de acertos (Not-taken): {percent(acertos_nt)}%")
+    print(f"Total de acertos (Taken): {percent(acertos_t)}%")
+    print(f"Total de acertos (Direção): {percent(acertos_dir)}%")
+    print(f"Total de acertos (1-bit): {percent(acertos_1bit)}%")
+    print(f"Total de acertos (2-bit): {percent(acertos_2bit)}%")
 
 # Execução da função principal
 if __name__ == "__main__":
